@@ -1,0 +1,129 @@
+/* src/components/PianoKeyboard.css */
+.piano-container {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  height: 280px; /* adjust as needed */
+}
+
+.piano-key-white {
+  flex: 1;
+  background-color: #edeeef;
+  border: 1px solid #c2c6d6;
+  border-radius: 0 0 8px 8px;
+  margin: 0 2px;
+  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 20px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #191c1d;
+}
+
+.piano-key-white:hover:not(:disabled) {
+  background-color: #f3f4f5;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.piano-key-white:active:not(:disabled) {
+  background-color: #e1e3e4;
+  box-shadow: inset 0px 2px 4px rgba(59, 130, 246, 0.1);
+}
+
+.piano-key-white:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.piano-key-black {
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  height: 60%;
+  background-color: #001a42;
+  color: #ffffff;
+  box-shadow: 0px 6px 10px -2px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  border: none;
+  border-radius: 0 0 6px 6px;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 12px;
+  font-weight: 600;
+  font-size: 13px;
+  /* width and left are set inline via style prop */
+}
+
+.piano-key-black:hover:not(:disabled) {
+  background-color: #004395;
+  box-shadow: 0px 8px 15px -4px rgba(0, 0, 0, 0.25);
+}
+
+.piano-key-black:active:not(:disabled) {
+  background-color: #001a42;
+  box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.piano-key-black:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+/* Feedback States */
+.key-correct {
+  box-shadow: 0 0 0 2px #0058be, 0 0 15px rgba(0, 88, 190, 0.4) !important;
+  border-color: transparent !important;
+  z-index: 20;
+}
+
+.key-wrong {
+  box-shadow: 0 0 0 2px #ba1a1a, 0 0 15px rgba(186, 26, 26, 0.4) !important;
+  border-color: transparent !important;
+  z-index: 20;
+  animation: shake 0.4s ease-in-out;
+}
+
+.feedback-icon {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.key-correct .feedback-icon {
+  color: #0058be;
+}
+.key-wrong .feedback-icon {
+  color: #ba1a1a;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
