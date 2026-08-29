@@ -1,75 +1,142 @@
-# React + TypeScript + Vite
+# relative
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple web-based relative pitch trainer that helps you practice identifying musical notes by ear.
 
-Currently, two official plugins are available:
+Listen to a randomly selected note played by a randomly selected instrument, then identify the pitch using the on-screen piano keyboard.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Random note selection
+- Random instrument selection
+- Audio playback directly in the browser
+- 12 pitch classes using flat notation
+- Interactive piano keyboard
+- Immediate correct/wrong feedback
+- Score tracking
+- Accuracy percentage
+- Persistent high score using `localStorage`
+- Replay the current note
+- Responsive layout for desktop and mobile
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- React
+- TypeScript
+- Vite
+- HTML5 Audio API
+- CSS
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Make sure you have Node.js and npm installed.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
 
+Clone the repository:
+
+```bash
+git clone https://github.com/blertjakupi/relative.git
+cd relative
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Install the dependencies:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
 ```
+
+### Development
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Then open the local URL shown in your terminal.
+
+### Production Build
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+The production files will be generated in the `dist` directory.
+
+## How It Works
+
+1. Start the game.
+2. A random recording is selected.
+3. The note is played through the browser.
+4. Once playback finishes, select the pitch you believe you heard.
+5. The game tells you whether your answer was correct.
+6. Your score and accuracy are updated.
+7. Continue with the next note.
+
+The current version uses pitch classes rather than specific octaves. For example, a C played in a different octave is still treated as C.
+
+## Project Structure
+
+```text
+src/
+├── components/
+│   ├── AudioPlayer.tsx
+│   ├── Game.tsx
+│   └── PianoKeyboard.tsx
+├── data/
+│   └── recordings.ts
+├── game/
+│   └── pitchClasses.ts
+├── hooks/
+│   └── useAudioPlayer.ts
+├── App.tsx
+└── main.tsx
+
+public/
+└── audio/
+    └── ...
+```
+
+## Audio Credits
+
+The audio recordings used by this project come from the [MIDI.js Soundfonts project](https://github.com/gleitz/midi-js-soundfonts).
+
+Many thanks to the contributors and maintainers of MIDI.js Soundfonts for making these audio resources available.
+
+Please refer to the original repository for the applicable licensing information and full attribution details.
+
+## License
+
+The source code of this project is provided under the license included in this repository.
+
+The audio assets are not original recordings created for this project. They are sourced from the MIDI.js Soundfonts project and remain subject to their respective licensing terms.
+
+For more information, see:
+
+https://github.com/gleitz/midi-js-soundfonts
+
+## Status
+
+This project is currently under active development.
+
+The current goal is to build a simple, fast, and accessible relative pitch trainer.
+
+## Planned Features
+
+- Difficulty levels
+- Instrument selection
+- Octave-specific exercises
+- Sharps/flats notation toggle
+- Statistics and performance history
+- User accounts and progress synchronization
+- Leaderboards
+- Custom audio uploads
+- More advanced ear-training exercises
+
+---
+
+Built with React + TypeScript.
