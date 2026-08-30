@@ -1,4 +1,3 @@
-// src/components/Game.tsx
 import { useState } from 'react';
 import { getRandomRecording } from '../data/recordings';
 import type { Recording } from '../data/recordings';
@@ -79,7 +78,7 @@ export function Game() {
               Identify the note played
             </p>
 
-            {/* START GAME button */}
+           
             {!currentRecording ? (
               <button
                 type="button"
@@ -93,7 +92,7 @@ export function Game() {
                 </span>
               </button>
             ) : (
-              /* REPLAY button */
+             
               <button
                 type="button"
                 onClick={() => play(currentRecording.file).catch(console.warn)}
@@ -119,7 +118,7 @@ export function Game() {
                     : 'Tap a key to answer'}
             </p>
 
-            {/* FEEDBACK OVERLAY — CORRECT = GREEN, WRONG = RED */}
+          
             {userAnswer !== null && currentRecording && (
               <div className="absolute inset-0 bg-surface-container-lowest/95 backdrop-blur-md flex flex-col items-center justify-center z-20 transition-opacity duration-300 p-8 rounded-[32px]">
                 <span
