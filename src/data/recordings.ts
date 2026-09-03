@@ -1,3 +1,5 @@
+import hashedMapping from './_data.json';
+
 export const INSTRUMENTS = [
   'acoustic_grand_piano',
   'acoustic_guitar',
@@ -6,8 +8,6 @@ export const INSTRUMENTS = [
 ] as const;
 
 export type Instrument = (typeof INSTRUMENTS)[number];
-
-
 
 export const NOTE_NAMES = [
   'A',
@@ -27,75 +27,50 @@ export const NOTE_NAMES = [
 export type NoteName = (typeof NOTE_NAMES)[number];
 
 
-const NOTE_OCTAVE_MAP: Record<NoteName, number[]> = {
-  A: [0, 1, 2, 3, 4, 5, 6, 7],
-  Ab: [1, 2, 3, 4, 5, 6, 7],
-
-  B: [0, 1, 2, 3, 4, 5, 6, 7],
-  Bb: [0, 1, 2, 3, 4, 5, 6, 7],
-
-  C: [1, 2, 3, 4, 5, 6, 7, 8],
-
-  D: [1, 2, 3, 4, 5, 6, 7],
-  Db: [1, 2, 3, 4, 5, 6, 7],
-
-  E: [1, 2, 3, 4, 5, 6, 7],
-  Eb: [1, 2, 3, 4, 5, 6, 7],
-
-  F: [1, 2, 3, 4, 5, 6, 7],
-
-  G: [1, 2, 3, 4, 5, 6, 7],
-  Gb: [1, 2, 3, 4, 5, 6, 7],
-};
-
-
-const allNoteOctaves: Array<{
-  note: NoteName;
-  octave: number;
-  fullName: string;
-}> = [];
-
-for (const note of NOTE_NAMES) {
-  const octaves = NOTE_OCTAVE_MAP[note];
-
-  for (const octave of octaves) {
-    allNoteOctaves.push({
-      note,
-      octave,
-      fullName: `${note}${octave}`,
-    });
-  }
-}
-
 
 export interface Recording {
   id: string;
   instrument: Instrument;
-  file: string;
-  note: NoteName;
+  file: string;        
+  note: NoteName;      
   octave: number;
-  fullName: string;
+  fullName: string;    
 }
 
 
-export const recordings: Recording[] = [];
 
-for (const instrument of INSTRUMENTS) {
-  for (const { note, octave, fullName } of allNoteOctaves) {
-    recordings.push({
-      id: `${instrument}-${fullName}`,
-      instrument,
-      file: `/audio/${instrument}/${fullName}.mp3`,
-      note,
-      octave,
-      fullName,
-    });
-  }
+const recordings: Recording[] = [];
+
+
+const mapping = hashedMapping as Record<
+  string,
+  { instrument: string; note: string }
+>;
+
+for (const [key, value] of Object.entries(mapping)) {
+  const { instrument, note } = value;
+
+  
+  const match = note.match(/^([A-G][b#]?)(\d+)$/);
+  const pitch = match ? match[1] : note;
+  const octave = match ? parseInt(match[2], 10) : 0;
+
+  const hashFile = key.split('/')[1];
+
+  recordings.push({
+    id: `${instrument}-${hashFile}`,
+    instrument: instrument as Instrument,
+    file: `/audio/${key}`,
+    note: pitch as NoteName,
+    octave,
+    fullName: note,
+  });
 }
+
+
 
 export function getRandomInstrument(): Instrument {
   const index = Math.floor(Math.random() * INSTRUMENTS.length);
-
   return INSTRUMENTS[index];
 }
 
@@ -109,13 +84,10 @@ export function getRecordingsByInstrument(
 
 export function getRandomRecording(): Recording {
   const instrument = getRandomInstrument();
-
-  const instrumentRecordings =
-    getRecordingsByInstrument(instrument);
-
-  const index = Math.floor(
-    Math.random() * instrumentRecordings.length
-  );
-
+  const instrumentRecordings = getRecordingsByInstrument(instrument);
+  const index = Math.floor(Math.random() * instrumentRecordings.length);
   return instrumentRecordings[index];
 }
+
+
+export { recordings };
