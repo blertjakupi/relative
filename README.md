@@ -14,7 +14,6 @@ Listen to a randomly selected note played by a randomly selected instrument, the
 - Immediate correct/wrong feedback
 - Score tracking
 - Accuracy percentage
-- Persistent high score using `localStorage`
 - Replay the current note
 - Responsive layout for desktop and mobile
 
@@ -27,6 +26,7 @@ Listen to a randomly selected note played by a randomly selected instrument, the
 - CSS
 
 ## Getting Started
+You can [play it now](https://relative-gray.vercel.app/) in your browser, or run it locally
 
 ### Prerequisites
 
